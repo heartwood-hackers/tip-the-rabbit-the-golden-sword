@@ -1,21 +1,14 @@
 extends RigidBody2D
 
-func _integrate_forces(_state):
-  var right = Input.get_action_strength("move_right")*400
-  var left = Input.get_action_strength("move_left")*400
-  
-  var jumped = Input.is_action_just_pressed("jump")
-  var up_velocity = -400.0 if jumped else linear_velocity.y
-  
-  if(jumped): print("jumped!", up_velocity)
+export var speed=400
+export var jump_speed=400
+export var player_number=1
 
-  linear_velocity = Vector2(right-left, up_velocity)
+func _integrate_forces(state):
+  var right = Input.get_action_strength("move_right%s"%player_number)*speed
+  var left = Input.get_action_strength("move_left%s"%player_number)*speed
+  var lateral_velocity=linear_velocity.x if (right-left==0) else right-left
+  var jumped = Input.is_action_just_pressed("jump%s"%player_number)
+  var up_velocity = -jump_speed if jumped else linear_velocity.y
   
-#  if right > 0:
-#    linear_velocity = Vector2(right*700, 0)
-#
-#  elif left > 0:
-#    linear_velocity = Vector2(left*-700, 0)
-#
-#  else:
-#    linear_velocity = Vector2()
+  state.linear_velocity = Vector2(lateral_velocity, up_velocity)
