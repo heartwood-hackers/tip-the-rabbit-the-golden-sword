@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Walk_Run_Push_Dust_6.png-2db85135355547fa35cd69e8ee3c7105.stex"
+path="res://.import/run_dust.png-65e240dc81cfd02dbc8c64f7c2530402.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://effects/Walk_Run_Push_Dust_6.png"
-dest_files=[ "res://.import/Walk_Run_Push_Dust_6.png-2db85135355547fa35cd69e8ee3c7105.stex" ]
+source_file="res://effects/run_dust.png"
+dest_files=[ "res://.import/run_dust.png-65e240dc81cfd02dbc8c64f7c2530402.stex" ]
 
 [params]
 
