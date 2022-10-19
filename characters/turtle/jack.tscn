@@ -321,5 +321,6 @@ anims/Throw = SubResource( 6 )
 
 [node name="Animations" type="Sprite" parent="." index="2"]
 scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
 offset = Vector2( 0, -2 )
 hframes = 4
