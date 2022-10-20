@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="PhysicsMaterial" id=4]
+bounce = 1.0
+absorbent = true
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 1000, 25 )
+
+[node name="Ceiling" type="RigidBody2D"]
+collision_layer = 16
+mode = 1
+physics_material_override = SubResource( 4 )
+gravity_scale = 0.0
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+shape = SubResource( 9 )

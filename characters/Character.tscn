@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://characters/Character.gd" type="Script" id=1]
 
@@ -8,10 +8,15 @@
 radius = 17.0
 height = 22.0
 
-[node name="player" type="RigidBody2D"]
+[sub_resource type="Animation" id=7]
+resource_name = "Throw"
+
+[node name="Character" type="RigidBody2D" groups=["Characters"]]
+collision_mask = 9
 mode = 2
 physics_material_override = SubResource( 6 )
 gravity_scale = 5.0
+contact_monitor = true
 script = ExtResource( 1 )
 speed = 350
 jump_speed = 350
@@ -19,3 +24,11 @@ jump_speed = 350
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 13 )
 shape = SubResource( 5 )
+
+[node name="Animations" type="Sprite" parent="."]
+scale = Vector2( 2, 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Throw = SubResource( 7 )
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

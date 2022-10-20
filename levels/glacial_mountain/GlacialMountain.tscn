@@ -9,15 +9,3 @@
 position = Vector2( 520, 283 )
 scale = Vector2( 2.7881, 2.7881 )
 texture = ExtResource( 2 )
-
-[node name="CollisionShape2D2" parent="ground" index="0"]
-position = Vector2( 734, 548 )
-
-[node name="CollisionShape2D2" parent="roof" index="0"]
-position = Vector2( 718, -38 )
-
-[node name="CollisionShape2D2" parent="leftwall" index="0"]
-position = Vector2( -34, 283 )
-
-[node name="CollisionShape2D2" parent="rightwall" index="0"]
-position = Vector2( 1064, 338 )
