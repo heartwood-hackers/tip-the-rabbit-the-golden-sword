@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://characters/Character.gd" type="Script" id=1]
 
@@ -7,9 +7,6 @@
 [sub_resource type="CapsuleShape2D" id=5]
 radius = 17.0
 height = 22.0
-
-[sub_resource type="Animation" id=7]
-resource_name = "Throw"
 
 [node name="Character" type="RigidBody2D" groups=["Characters"]]
 collision_mask = 9
@@ -27,8 +24,5 @@ shape = SubResource( 5 )
 
 [node name="Animations" type="Sprite" parent="."]
 scale = Vector2( 2, 2 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Throw = SubResource( 7 )
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
