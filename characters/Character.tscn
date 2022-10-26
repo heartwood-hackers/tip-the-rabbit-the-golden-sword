@@ -19,10 +19,10 @@ speed = 350
 jump_speed = 350
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 13 )
 shape = SubResource( 5 )
 
 [node name="Animations" type="Sprite" parent="."]
+position = Vector2( 0, -5 )
 scale = Vector2( 2, 2 )
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
