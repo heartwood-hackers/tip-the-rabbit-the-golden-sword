@@ -1,6 +1,7 @@
 extends RigidBody2D
 class_name Character
 
+var rock_scene=preload("res://projectiles/Rock.tscn")
 export var damage=0
 export var speed=400
 export var jump_speed=400
@@ -10,6 +11,11 @@ var current_velocity
 
 onready var animation_player = $AnimationPlayer
 
+func throw_rock():
+  var rock_instance=rock_scene.instance()
+  rock_instance.position=Vector2(100,0)
+  rock_instance.linear_velocity =Vector2(600,0)
+  add_child(rock_instance)
 func _on_body_entered(body):
   if(body.is_in_group("boundaries")): body._collide_with_character(self)
 

@@ -24,7 +24,7 @@ Owl: 100"
 position = Vector2( 827, 169 )
 collision_mask = 1
 contacts_reported = 4
-player_number = 2
+player_number = 3
 
 [node name="Turtle" parent="." instance=ExtResource( 2 )]
 position = Vector2( 509, 162 )
