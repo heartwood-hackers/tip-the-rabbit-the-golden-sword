@@ -27,6 +27,11 @@ func _physics_process(_delta):
   current_velocity = self.linear_velocity
 
 func _integrate_forces(state):
+  if(position.x > 2000 or position.x < -500 or position.y < -500 or position.y > 1000):
+    state.transform.origin = Vector2(100, 100)
+    state.linear_velocity /= 4
+    return
+
   var right = strength("move_right")*speed
   var left = strength("move_left")*speed
   var lateral_velocity=linear_velocity.x if (right-left==0) else right-left
