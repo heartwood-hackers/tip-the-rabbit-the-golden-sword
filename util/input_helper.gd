@@ -2,7 +2,7 @@ extends Node
 
 
 static func add_player_action(player_number, action_name, events):
-  var player_action = "p%s_%s" % [player_number, action_name]
+  var player_action = "%s%s" % [action_name, player_number]
   InputMap.add_action(player_action)
   
   for event in events:

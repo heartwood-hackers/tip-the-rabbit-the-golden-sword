@@ -23,6 +23,12 @@ position = Vector2( 509, 162 )
 collision_mask = 1
 contacts_reported = 4
 
+[node name="Turtle2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 385, 155 )
+collision_mask = 1
+contacts_reported = 4
+player_number = 4
+
 [node name="Rabbit" parent="." instance=ExtResource( 3 )]
 position = Vector2( 161, 154 )
 collision_mask = 1

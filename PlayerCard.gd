@@ -70,7 +70,7 @@ func _ready():
       { "scancode": KEY_UP }
     ])
     input.add_player_action(player_number, "attack_melee", [
-      { "scancode": KEY_QUESTION }
+      { "scancode": KEY_SLASH }
     ])
     input.add_player_action(player_number, "attack_range", [
       { "scancode": KEY_PERIOD }
