@@ -23,7 +23,6 @@ func _set_mode(new_mode: int):
 func _ready():
   self._set_mode(mode)
 
-  print("registering %s"%player_number)
   # register input listeners
   if(player_number == 1 or player_number == 2):
     input.add_player_action(player_number, "move_right", [
@@ -76,3 +75,6 @@ func _ready():
       { "scancode": KEY_PERIOD }
     ])
 
+func _input(_param):
+  # TODO: change to select mode upon input in attract mode
+  pass
