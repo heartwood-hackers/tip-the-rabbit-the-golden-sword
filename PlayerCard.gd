@@ -7,7 +7,7 @@ export(int, 1, 4) var player_number = 1
 
 # modes and transitions
 enum {Attract, Select, Active}
-export var mode = Attract
+export var mode = Attract setget _set_mode
 func _set_mode(new_mode: int):
   mode = new_mode
   for child in get_children():
@@ -20,8 +20,10 @@ func _set_mode(new_mode: int):
   elif(mode == Active):
     $ActiveMode.visible = true
 
+
+var actions = ["move_right", "move_left", "jump", "attack_melee", "attack_range"]
 func _ready():
-  self._set_mode(mode)
+  self.mode = mode
 
   # register input listeners
   if(player_number == 1 or player_number == 2):
@@ -75,6 +77,15 @@ func _ready():
       { "scancode": KEY_PERIOD }
     ])
 
-func _input(_param):
-  # TODO: change to select mode upon input in attract mode
-  pass
+func _input(event):
+  if(!mode == Attract): return
+  
+  var my_player_input = false
+  for action in actions:
+    if(event.is_action("%s%s" % [action, player_number])):
+      my_player_input = true
+      break
+
+  # transition to character select mode
+  if(my_player_input):
+    self.mode = Select
