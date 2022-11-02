@@ -151,9 +151,9 @@ func preview_character():
   var name: String = current_character().capitalize()
   # set the name node
   $SelectMode/MarginContainer/VBoxContainer/HBoxContainer/CharacterName.text = name
-  $ActiveMode/CharacterName.text = name
+  $ActiveMode/MarginContainer/VBoxContainer/CharacterName.text = name
   # set the portrait node
   var portrait_texture = load("res://characters/%s/portrait.png" % name)
   $SelectMode/MarginContainer/VBoxContainer/MarginContainer/CharacterPortrait.texture = portrait_texture
-  $ActiveMode/MarginContainer/CharacterPortrait.texture = portrait_texture
+  $ActiveMode/MarginContainer/VBoxContainer/MarginContainer/CharacterPortrait.texture = portrait_texture
   

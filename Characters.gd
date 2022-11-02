@@ -2,7 +2,7 @@ extends Node2D
 
 onready var spawn_points = $SpawnPoints.get_children()
 func _character_selected(player_number: int, character_name: String):
-  print("player %s chose %s" %[player_number, character_name])
+#  print("player %s chose %s" %[player_number, character_name])
   
   var character_scene = load("res://characters/%s/%s.tscn" % [character_name, character_name.capitalize()])
   var character_node = character_scene.instance()

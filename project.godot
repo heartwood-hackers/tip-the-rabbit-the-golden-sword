@@ -39,6 +39,7 @@ common/drop_mouse_on_gui_input_disabled=true
 2d_physics/layer_3="floor"
 2d_physics/layer_4="wall"
 2d_physics/layer_5="ceiling"
+2d_physics/layer_6="melee"
 
 [physics]
 
