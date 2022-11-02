@@ -9,7 +9,7 @@ radius = 17.0
 height = 22.0
 
 [node name="Character" type="RigidBody2D" groups=["Characters"]]
-collision_mask = 9
+collision_mask = 8
 mode = 2
 physics_material_override = SubResource( 6 )
 gravity_scale = 5.0
@@ -21,8 +21,11 @@ jump_speed = 350
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 5 )
 
+[node name="ThrowOrigin" type="Position2D" parent="."]
+position = Vector2( 26, -6 )
+
 [node name="Animations" type="Sprite" parent="."]
-position = Vector2( 0, -5 )
+position = Vector2( 1, -5 )
 scale = Vector2( 2, 2 )
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

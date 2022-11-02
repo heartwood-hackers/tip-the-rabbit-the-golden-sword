@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://PlayerCard.gd" type="Script" id=1]
 [ext_resource path="res://BlinkingPrompt.gd" type="Script" id=2]
+[ext_resource path="res://characters/owl/portrait.png" type="Texture" id=3]
 
 [node name="PlayerCard" type="Control"]
 margin_right = 150.0
@@ -9,6 +10,7 @@ margin_bottom = 100.0
 script = ExtResource( 1 )
 
 [node name="AttractMode" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -26,58 +28,88 @@ autostart = true
 
 [node name="SelectMode" type="Control" parent="."]
 visible = false
+modulate = Color( 1, 1, 1, 0.803922 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="ColorRect" type="ColorRect" parent="SelectMode"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0.317647, 0.317647, 0.317647, 1 )
+color = Color( 0.423529, 0.423529, 0.423529, 1 )
 
 [node name="MarginContainer" type="MarginContainer" parent="SelectMode"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
 margin_top = 5.0
-margin_right = -10.0
-margin_bottom = -10.0
+margin_right = -5.0
+margin_bottom = -5.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SelectMode/MarginContainer"]
-margin_right = 135.0
-margin_bottom = 85.0
+margin_right = 140.0
+margin_bottom = 90.0
 
 [node name="Label" type="Label" parent="SelectMode/MarginContainer/VBoxContainer"]
-margin_right = 135.0
+margin_right = 140.0
 margin_bottom = 14.0
 text = "Choose a Character"
 align = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SelectMode/MarginContainer/VBoxContainer"]
 margin_top = 18.0
-margin_right = 135.0
+margin_right = 140.0
 margin_bottom = 32.0
 alignment = 1
 
 [node name="LeftArrow" type="Label" parent="SelectMode/MarginContainer/VBoxContainer/HBoxContainer"]
-margin_left = 37.0
-margin_right = 45.0
+margin_left = 39.0
+margin_right = 47.0
 margin_bottom = 14.0
 text = "<"
 
-[node name="CharacterCursor" type="Label" parent="SelectMode/MarginContainer/VBoxContainer/HBoxContainer"]
-margin_left = 49.0
-margin_right = 86.0
+[node name="CharacterName" type="Label" parent="SelectMode/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 51.0
+margin_right = 88.0
 margin_bottom = 14.0
 text = "Turtle"
 
 [node name="Right Arrow" type="Label" parent="SelectMode/MarginContainer/VBoxContainer/HBoxContainer"]
-margin_left = 90.0
-margin_right = 98.0
+margin_left = 92.0
+margin_right = 100.0
 margin_bottom = 14.0
 text = ">"
 
+[node name="MarginContainer" type="MarginContainer" parent="SelectMode/MarginContainer/VBoxContainer"]
+margin_top = 36.0
+margin_right = 140.0
+margin_bottom = 68.0
+
+[node name="CharacterPortrait" type="TextureRect" parent="SelectMode/MarginContainer/VBoxContainer/MarginContainer"]
+margin_right = 140.0
+margin_bottom = 32.0
+texture = ExtResource( 3 )
+stretch_mode = 6
+
 [node name="ActiveMode" type="Control" parent="."]
+modulate = Color( 1, 1, 1, 0.72549 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+
+[node name="CharacterName" type="Label" parent="ActiveMode"]
+margin_left = 51.0
+margin_right = 88.0
+margin_bottom = 14.0
+text = "Turtle"
+
+[node name="MarginContainer" type="MarginContainer" parent="ActiveMode"]
+margin_top = 36.0
+margin_right = 140.0
+margin_bottom = 68.0
+
+[node name="CharacterPortrait" type="TextureRect" parent="ActiveMode/MarginContainer"]
+margin_right = 140.0
+margin_bottom = 32.0
+texture = ExtResource( 3 )
+stretch_mode = 6
 
 [connection signal="timeout" from="AttractMode/BlinkingPrompt/Timer" to="AttractMode/BlinkingPrompt" method="_on_Timer_timeout"]

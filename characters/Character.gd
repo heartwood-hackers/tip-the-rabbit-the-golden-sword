@@ -12,20 +12,22 @@ var current_velocity
 onready var animation_player = $AnimationPlayer
 
 func throw_rock():
-  var rock_instance=rock_scene.instance()
-  rock_instance.position=Vector2(100,0)
-  rock_instance.linear_velocity =Vector2(600,0)
+  var rock_instance = rock_scene.instance()
+  rock_instance.position = $ThrowOrigin.position * (-1 if $Animations.flip_h else 1)
+  rock_instance.linear_velocity = Vector2(600,0) * (-1 if $Animations.flip_h else 1)
   add_child(rock_instance)
+
 func _on_body_entered(body):
   if(body.is_in_group("boundaries")): body._collide_with_character(self)
 
-  if(!body.is_in_group("Characters")): return
-
-  var my_magnitude = self.previous_velocity.length()
-  var body_magnitude = body.previous_velocity.length()
-  
-  if(my_magnitude > body_magnitude):
-    body.apply_central_impulse((self.previous_velocity-body.previous_velocity)*2)
+# character collisions off for now
+#  if(!body.is_in_group("Characters")): return
+#
+#  var my_magnitude = self.previous_velocity.length()
+#  var body_magnitude = body.previous_velocity.length()
+#
+#  if(my_magnitude > body_magnitude):
+#    body.apply_central_impulse((self.previous_velocity-body.previous_velocity)*2)
 
 
 func _physics_process(_delta):
@@ -33,8 +35,11 @@ func _physics_process(_delta):
   current_velocity = self.linear_velocity
 
 func _integrate_forces(state):
+  # out of bounds:
   if(position.x > 2000 or position.x < -500 or position.y < -500 or position.y > 1000):
+    # respawn
     state.transform.origin = Vector2(100, 100)
+    # dampen velocity
     state.linear_velocity /= 4
     return
 
@@ -77,5 +82,6 @@ func _process(_delta):
   if !$AnimationPlayer.is_playing():
     if linear_velocity.y != 0:
       $AnimationPlayer.play("Air Idle")
+      $AnimationPlayer.queue("RESET")
     else:
       $AnimationPlayer.play("Idle")
