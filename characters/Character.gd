@@ -17,6 +17,13 @@ func throw_rock():
   rock_instance.linear_velocity = Vector2(600,0) * (-1 if $Animations.flip_h else 1)
   add_child(rock_instance)
 
+
+func _on_attack_body_entered(body):
+  if(body == self): return # stop hitting yourself
+  
+  print('hit %s' % body)
+#  if(body.is_in_group("boundaries")): body._collide_with_character(self)
+
 func _on_body_entered(body):
   if(body.is_in_group("boundaries")): body._collide_with_character(self)
 
@@ -58,11 +65,12 @@ func pressed(action: String, just: bool=false):
   return Input.is_action_just_pressed("%s%s" % [action, player_number]) if just else Input.is_action_pressed("%s%s" % [action, player_number])
 
 func _process(_delta):
-  if $Animations:
-    if linear_velocity.x < -1:
-      $Animations.flip_h = true
-    if linear_velocity.x > 1:
-      $Animations.flip_h = false
+  if linear_velocity.x < -1:
+    $Animations.flip_h = true
+    $AttackSprite.flip_h = true
+  if linear_velocity.x > 1:
+    $Animations.flip_h = false
+    $AttackSprite.flip_h = false
 
   if !animation_player: return
 
