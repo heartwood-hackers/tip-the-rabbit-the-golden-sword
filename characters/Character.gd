@@ -5,7 +5,7 @@ var rock_scene=preload("res://projectiles/Rock.tscn")
 export var damage=0
 export var speed=400
 export var jump_speed=400
-export var player_number=1
+export(int, 1, 4) var player_number
 var previous_velocity
 var current_velocity
 
@@ -58,11 +58,15 @@ func _integrate_forces(state):
   
   state.linear_velocity = Vector2(lateral_velocity, up_velocity)
 
-func strength(action: String):
-  return Input.get_action_strength("%s%s" % [action, player_number])
+func action(action_name: String):
+  return "%s%s" % [action_name, player_number]
 
-func pressed(action: String, just: bool=false):
-  return Input.is_action_just_pressed("%s%s" % [action, player_number]) if just else Input.is_action_pressed("%s%s" % [action, player_number])
+func strength(action_name: String):
+  return Input.get_action_strength(action(action_name))
+
+func pressed(action_name: String, just: bool=false):
+  if just: return Input.is_action_just_pressed(action(action_name))
+  else: return Input.is_action_pressed(action(action_name))
 
 func _process(_delta):
   if linear_velocity.x < -1:
