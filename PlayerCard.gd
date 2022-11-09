@@ -99,7 +99,7 @@ func _input(event):
   var action = parse_action(event)
   if(!action): return # not ours, bail
 
-  var ready_after = last_action_time + 150
+  var ready_after = last_action_time + 500
   var this_action_time = Time.get_ticks_msec()
   # throttle rapidly repeated inputs
   if(action == last_action and this_action_time < ready_after): return
