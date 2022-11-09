@@ -13,6 +13,8 @@ static func add_player_action(player_number, action_name, events):
       if event.has("axis"):
         input_event = InputEventJoypadMotion.new()
         input_event.axis = event["axis"]
+        if event.has("flipped") and event["flipped"]:
+          input_event.axis_value = -1.0
       elif event.has("button"):
         input_event = InputEventJoypadButton.new()
         input_event.button_index = event["button"]

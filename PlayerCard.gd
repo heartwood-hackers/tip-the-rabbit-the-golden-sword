@@ -33,10 +33,10 @@ func _ready():
   # register input listeners
   if(player_number == 1 or player_number == 2):
     input.add_player_action(player_number, "move_right", [
-      { "device": player_number-1, "axis": -JOY_AXIS_1 }
+      { "device": player_number-1, "axis": JOY_AXIS_0 }
     ])
     input.add_player_action(player_number, "move_left", [
-      { "device": player_number-1, "axis": JOY_AXIS_1 }
+      { "device": player_number-1, "axis": JOY_AXIS_0, "flipped": true }
     ])
     input.add_player_action(player_number, "jump", [
       { "device": player_number-1, "button": JOY_XBOX_A }
