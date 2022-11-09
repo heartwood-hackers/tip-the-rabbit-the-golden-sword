@@ -3,11 +3,9 @@ class_name Character
 
 var rock_scene=preload("res://projectiles/Rock.tscn")
 export var damage=0
-export var speed=400
-export var jump_speed=400
+export var speed=100
+export var jump_speed=800
 export(int, 1, 4) var player_number
-var previous_velocity
-var current_velocity
 
 onready var animation_player = $AnimationPlayer
 
@@ -19,28 +17,13 @@ func throw_rock():
 
 
 func _on_attack_body_entered(body):
-  if(body == self): return # stop hitting yourself
+  if(!body.is_in_group("Characters") or body == self): return # stop hitting yourself
   
-  print('hit %s' % body)
-#  if(body.is_in_group("boundaries")): body._collide_with_character(self)
-
-func _on_body_entered(body):
-  if(body.is_in_group("boundaries")): body._collide_with_character(self)
-
-# character collisions off for now
-#  if(!body.is_in_group("Characters")): return
-#
-#  var my_magnitude = self.previous_velocity.length()
-#  var body_magnitude = body.previous_velocity.length()
-#
-#  if(my_magnitude > body_magnitude):
-#    body.apply_central_impulse((self.previous_velocity-body.previous_velocity)*2)
-
-
-func _physics_process(_delta):
-  previous_velocity = current_velocity
-  current_velocity = self.linear_velocity
-
+  var me_to_you = body.position - self.position
+  var unit_mty = me_to_you.normalized()
+  body.apply_central_impulse(unit_mty*600)  
+  
+  
 func _integrate_forces(state):
   # out of bounds:
   if(position.x > 2000 or position.x < -500 or position.y < -500 or position.y > 1000):
@@ -52,11 +35,15 @@ func _integrate_forces(state):
 
   var right = strength("move_right")*speed
   var left = strength("move_left")*speed
-  var lateral_velocity=linear_velocity.x if (right-left==0) else right-left
+
+  if(right-left != 0):
+    state.apply_central_impulse(Vector2(right-left, 0))
+
   var jumped = pressed("jump", true)
-  var up_velocity = -jump_speed if jumped else linear_velocity.y
+  if(jumped):
+    state.apply_central_impulse(Vector2(0, -jump_speed))
   
-  state.linear_velocity = Vector2(lateral_velocity, up_velocity)
+  state.linear_velocity = Vector2(clamp(state.linear_velocity.x, -400, 400), clamp(state.linear_velocity.y, -400, 400))
 
 func action(action_name: String):
   return "%s%s" % [action_name, player_number]
