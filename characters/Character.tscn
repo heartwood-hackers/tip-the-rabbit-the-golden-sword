@@ -15,8 +15,7 @@ physics_material_override = SubResource( 6 )
 gravity_scale = 5.0
 contact_monitor = true
 script = ExtResource( 1 )
-speed = 350
-jump_speed = 350
+player_number = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 5 )
