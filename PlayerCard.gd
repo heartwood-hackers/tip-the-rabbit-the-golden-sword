@@ -93,6 +93,7 @@ func _ready():
 
 
 signal select_character(player_number, character_name)
+signal unselect_character(player_number)
 var last_action
 var last_action_time = Time.get_ticks_msec()
 func _input(event):
@@ -109,7 +110,10 @@ func _input(event):
   # do nothing if active, Character script handles the input
   if(mode == Active):
     # cancel returns to character select
-    if(action == "cancel"): self.mode = Select
+    
+    if(action == "cancel"):
+      emit_signal("unselect_character", player_number)
+      self.mode = Select
   
   elif(mode == Attract):
     # anything but cancel starts character select
@@ -147,13 +151,19 @@ func preview_next_character():
   character_cursor = characters.size()-1 if (character_cursor <= 0) else character_cursor - 1
   preview_character()
 
-func preview_character():
+func preview_character(life=100):
   var name: String = current_character().capitalize()
   # set the name node
   $SelectMode/MarginContainer/VBoxContainer/HBoxContainer/CharacterName.text = name
   $ActiveMode/MarginContainer/VBoxContainer/CharacterName.text = name
+  $ActiveMode/MarginContainer/VBoxContainer/CharacterLife.text = "Life: %s" % life
   # set the portrait node
   var portrait_texture = load("res://characters/%s/portrait.png" % name)
   $SelectMode/MarginContainer/VBoxContainer/MarginContainer/CharacterPortrait.texture = portrait_texture
   $ActiveMode/MarginContainer/VBoxContainer/MarginContainer/CharacterPortrait.texture = portrait_texture
   
+
+
+func _on_Characters_update_life(update_player_number, new_life):
+  if(update_player_number == player_number):
+    preview_character(new_life) 

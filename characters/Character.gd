@@ -2,7 +2,13 @@ extends RigidBody2D
 class_name Character
 
 var rock_scene=preload("res://projectiles/Rock.tscn")
-export var damage=0
+signal damaged(player_number)
+export var life=100 setget _set_life
+func _set_life(new_life):
+  life = new_life
+  $Animations.rotation_degrees = life - 100
+  emit_signal("damaged", player_number, life)
+  
 export var speed=100
 export var jump_speed=800
 export(int, 1, 4) var player_number
@@ -21,12 +27,15 @@ func _on_attack_body_entered(body):
   
   var me_to_you = body.position - self.position
   var unit_mty = me_to_you.normalized()
-  body.apply_central_impulse(unit_mty*600)  
+  body.apply_central_impulse(unit_mty*600)
+  
+  body.life -= 10
   
   
 func _integrate_forces(state):
   # out of bounds:
-  if(position.x > 2000 or position.x < -500 or position.y < -500 or position.y > 1000):
+  if(life <= 0 or position.x > 2000 or position.x < -500 or position.y < -500 or position.y > 1000):
+    self.life = 100
     # respawn
     state.transform.origin = Vector2(100, 100)
     # dampen velocity
