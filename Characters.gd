@@ -14,12 +14,14 @@ func _character_selected(player_number: int, character_name: String):
   add_child(character_node)
 
 
-func _on_Player1Card_unselect_character(player_number):
+func _on_unselect_character(player_number):
   for child in get_children():
     if(child.name == "SpawnPoints"): continue
     if child.player_number == player_number:
       remove_child(child)
 
+
 signal update_life(character, life)
 func _character_damaged(character, life):
   emit_signal("update_life", character, life)
+
