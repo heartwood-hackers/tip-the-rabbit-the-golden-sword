@@ -1,24 +1,45 @@
 extends Node2D
 
 onready var spawn_points = $SpawnPoints.get_children()
-func _character_selected(player_number: int, character_name: String):
-#  print("player %s chose %s" %[player_number, character_name])
+onready var camera = $DynamicCamera
+func _process(delta):
+  var character_extents = get_character_position_extents()
+  camera.zoom_to_extents(character_extents)
+
+func get_character_position_extents():
+  var minimum
+  var maximum
+  for child in get_children():
+    if(child.name == "SpawnPoints" or child.name == "DynamicCamera"): continue
+    if !minimum: minimum = child.position
+    if !maximum: maximum = child.position
+    if minimum.x > child.position.x: minimum.x = child.position.x
+    if minimum.y > child.position.y: minimum.y = child.position.y
+    if maximum.x < child.position.x: maximum.x = child.position.x
+    if maximum.y < child.position.y: maximum.y = child.position.y
   
-  var character_scene = load("res://characters/%s/%s.tscn" % [character_name, character_name.capitalize()])
-  var character_node = character_scene.instance()
-  character_node.player_number = player_number
+  if minimum:
+    return Rect2(minimum, maximum-minimum)
+  else:
+    return Rect2(0, 0, 800, 600)
+
+func _character_selected(player_number: int, character_name: String):
   var spawn_point = get_node("SpawnPoints/SpawnPoint%s"%player_number)
-  character_node.position = spawn_point.position
-  print(character_node, position)
-  character_node.connect("damaged", self, "_character_damaged")
-  add_child(character_node)
+  var character_scene_path = "res://characters/%s/%s.tscn" % [character_name, character_name.capitalize()]
+  var character = load(character_scene_path).instance()
+
+  character.player_number = player_number
+  character.position = spawn_point.position
+  character.connect("damaged", self, "_character_damaged")
+
+  add_child(character)
 
 
 func _on_unselect_character(player_number):
   for child in get_children():
-    if(child.name == "SpawnPoints"): continue
+    if(child.name == "SpawnPoints" or child.name == "DynamicCamera"): continue
     if child.player_number == player_number:
-      remove_child(child)
+      child.queue_free()
 
 
 signal update_life(character, life)
