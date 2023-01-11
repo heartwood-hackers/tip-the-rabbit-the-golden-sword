@@ -31,6 +31,7 @@ func _character_selected(player_number: int, character_name: String):
   character.player_number = player_number
   character.position = spawn_point.position
   character.connect("damaged", self, "_character_damaged")
+  character.connect("lost_life", self, "_character_died")
 
   add_child(character)
 
@@ -42,7 +43,11 @@ func _on_unselect_character(player_number):
       child.queue_free()
 
 
-signal update_life(character, life)
-func _character_damaged(character, life):
-  emit_signal("update_life", character, life)
+signal update_health(character, health)
+func _character_damaged(character, health):
+  emit_signal("update_health", character, health)
 
+
+signal update_lives(character, lives)
+func _character_died(character, lives):
+  emit_signal("update_lives", character, lives)

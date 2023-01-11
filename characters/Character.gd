@@ -2,14 +2,15 @@ extends RigidBody2D
 class_name Character
 
 var rock_scene=preload("res://projectiles/Rock.tscn")
-signal damaged(player_number)
-export var life=100 setget _set_life
-func _set_life(new_life):
-  life = new_life
-  $Animations.rotation_degrees = life - 100
-  emit_signal("damaged", player_number, life)
+signal damaged(player_number, health)
+export var health=100 setget _set_health
+func _set_health(new_health):
+  health = new_health
+  $Animations.rotation_degrees = health - 100
+  emit_signal("damaged", player_number, health)
   
-
+signal lost_life(player_number, lives)
+export var lives = 3
 export var ground_acceleration = 100
 export var jump_speed = 1000
 
@@ -39,17 +40,29 @@ func _on_attack_body_entered(body):
   var unit_mty = me_to_you.normalized()
   body.apply_central_impulse(unit_mty*600)
   
-  body.life -= 10
+  body.health -= 10
   
+  
+func respawn(state):
+  self.health = 100
+  # respawn
+  state.transform.origin = Vector2(100, 100)
+  # dampen velocity
+  state.linear_velocity /= 4
+    
   
 func _integrate_forces(state):
   # out of bounds:
-  if(life <= 0 or position.x > 2000 or position.x < -500 or position.y < -500 or position.y > 1000):
-    self.life = 100
-    # respawn
-    state.transform.origin = Vector2(100, 100)
-    # dampen velocity
-    state.linear_velocity /= 4
+  if(health <= 0 or position.x > 2000 or position.x < -500 or position.y < -500 or position.y > 1000):
+    if(health <= 0):
+      lives -= 1
+      emit_signal("lost_life", player_number, lives)
+      
+
+    if(lives > 0):
+      self.respawn(state)
+    else:
+      self.queue_free()
     return
 
   var right = strength("move_right") * ground_acceleration
