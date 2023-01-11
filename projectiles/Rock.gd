@@ -22,3 +22,4 @@ func _integrate_forces(state):
           target.apply_central_impulse(unit_mty*200)  
           self.linear_velocity = Vector2(-unit_mty*30)
           target.life -= 10
+    self.queue_free()
