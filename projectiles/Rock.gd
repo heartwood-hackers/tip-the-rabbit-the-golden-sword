@@ -1,5 +1,6 @@
 extends RigidBody2D
 
+export var damage = 50
 
 func _on_timeout():
   self.queue_free()
@@ -21,5 +22,5 @@ func _integrate_forces(state):
           var unit_mty = me_to_you.normalized()
           target.apply_central_impulse(unit_mty*200)  
           self.linear_velocity = Vector2(-unit_mty*30)
-          target.life -= 10
+          target.health -= damage
     self.queue_free()
