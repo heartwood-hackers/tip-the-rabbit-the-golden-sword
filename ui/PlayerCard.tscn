@@ -112,28 +112,35 @@ margin_bottom = 100.0
 alignment = 1
 
 [node name="CharacterName" type="Label" parent="ActiveMode/MarginContainer/VBoxContainer"]
-margin_top = 16.0
+margin_top = 7.0
 margin_right = 120.0
-margin_bottom = 30.0
+margin_bottom = 21.0
 text = "Turtle"
 align = 1
 
 [node name="CharacterLife" type="Label" parent="ActiveMode/MarginContainer/VBoxContainer"]
-margin_top = 34.0
+margin_top = 25.0
 margin_right = 120.0
-margin_bottom = 48.0
-text = "Life: 100"
+margin_bottom = 39.0
+text = "Health: 100"
 align = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="ActiveMode/MarginContainer/VBoxContainer"]
-margin_top = 52.0
+margin_top = 43.0
 margin_right = 120.0
-margin_bottom = 84.0
+margin_bottom = 75.0
 
 [node name="CharacterPortrait" type="TextureRect" parent="ActiveMode/MarginContainer/VBoxContainer/MarginContainer"]
 margin_right = 120.0
 margin_bottom = 32.0
 texture = ExtResource( 3 )
 stretch_mode = 6
+
+[node name="CharacterLives" type="Label" parent="ActiveMode/MarginContainer/VBoxContainer"]
+margin_top = 79.0
+margin_right = 120.0
+margin_bottom = 93.0
+text = "Lives: 3"
+align = 1
 
 [connection signal="timeout" from="AttractMode/BlinkingPrompt/Timer" to="AttractMode/BlinkingPrompt" method="_on_Timer_timeout"]

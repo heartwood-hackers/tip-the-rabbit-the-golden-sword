@@ -151,19 +151,29 @@ func preview_next_character():
   character_cursor = characters.size()-1 if (character_cursor <= 0) else character_cursor - 1
   preview_character()
 
-func preview_character(life=100):
+func preview_character(health=100, lives=3):
   var name: String = current_character().capitalize()
   # set the name node
   $SelectMode/MarginContainer/VBoxContainer/HBoxContainer/CharacterName.text = name
   $ActiveMode/MarginContainer/VBoxContainer/CharacterName.text = name
-  $ActiveMode/MarginContainer/VBoxContainer/CharacterLife.text = "Life: %s" % life
+  update_health(health)
+  update_lives(lives)
   # set the portrait node
   var portrait_texture = load("res://characters/%s/portrait.png" % name)
   $SelectMode/MarginContainer/VBoxContainer/MarginContainer/CharacterPortrait.texture = portrait_texture
   $ActiveMode/MarginContainer/VBoxContainer/MarginContainer/CharacterPortrait.texture = portrait_texture
+
+func update_health(health=100):
+  $ActiveMode/MarginContainer/VBoxContainer/CharacterLife.text = "Health: %s" % health
+
+func update_lives(lives=3):
+  $ActiveMode/MarginContainer/VBoxContainer/CharacterLives.text = "Lives: %s" % lives
   
 
-
-func _on_Characters_update_life(update_player_number, new_life):
+func _on_Characters_update_health(update_player_number, new_health):
   if(update_player_number == player_number):
-    preview_character(new_life) 
+    update_health(new_health) 
+
+func _on_Characters_update_lives(update_player_number, new_lives):
+  if(update_player_number == player_number):
+    update_lives(new_lives) 
