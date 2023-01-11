@@ -9,12 +9,15 @@ func _set_life(new_life):
   $Animations.rotation_degrees = life - 100
   emit_signal("damaged", player_number, life)
   
+
 export var ground_acceleration = 100
 export var jump_speed = 1000
 
 export var max_ground_speed = 500
 export var max_air_speed = 1500
 export(int, 1, 4) var player_number
+
+var number_of_jumps = 0
 
 onready var animation_player = $AnimationPlayer
 
@@ -24,6 +27,10 @@ func throw_rock():
   rock_instance.linear_velocity = Vector2(600,0) * (-1 if $Animations.flip_h else 1)
   add_child(rock_instance)
 
+
+func _on_body_entered(body):
+  if(body.is_in_group("floor")):
+    number_of_jumps = 0
 
 func _on_attack_body_entered(body):
   if(!body.is_in_group("Characters") or body == self): return # stop hitting yourself
@@ -51,12 +58,13 @@ func _integrate_forces(state):
   if(right-left != 0):
     state.apply_central_impulse(Vector2(right-left, 0))
 
-  var jumped = pressed("jump", true)
-  if(jumped):
-#    state.apply_central_impulse(Vector2(0, -jump_speed))
+  var pressed_jump = pressed("jump", true)
+  if(pressed_jump and number_of_jumps < 2):
+    # do jump routine
     state.linear_velocity.y = -jump_speed
+    number_of_jumps += 1
   
-    # enforce maximum speeds
+  # enforce maximum speeds
   state.linear_velocity = Vector2(
     clamp(state.linear_velocity.x, -max_ground_speed, max_ground_speed),
     clamp(state.linear_velocity.y, -max_air_speed, max_air_speed))
