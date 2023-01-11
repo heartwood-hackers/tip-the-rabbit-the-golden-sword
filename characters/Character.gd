@@ -9,8 +9,11 @@ func _set_life(new_life):
   $Animations.rotation_degrees = life - 100
   emit_signal("damaged", player_number, life)
   
-export var speed=100
-export var jump_speed=800
+export var ground_acceleration = 100
+export var jump_speed = 1000
+
+export var max_ground_speed = 500
+export var max_air_speed = 1500
 export(int, 1, 4) var player_number
 
 onready var animation_player = $AnimationPlayer
@@ -42,17 +45,22 @@ func _integrate_forces(state):
     state.linear_velocity /= 4
     return
 
-  var right = strength("move_right")*speed
-  var left = strength("move_left")*speed
+  var right = strength("move_right") * ground_acceleration
+  var left = strength("move_left") * ground_acceleration
 
   if(right-left != 0):
     state.apply_central_impulse(Vector2(right-left, 0))
 
   var jumped = pressed("jump", true)
   if(jumped):
-    state.apply_central_impulse(Vector2(0, -jump_speed))
+#    state.apply_central_impulse(Vector2(0, -jump_speed))
+    state.linear_velocity.y = -jump_speed
   
-  state.linear_velocity = Vector2(clamp(state.linear_velocity.x, -400, 400), clamp(state.linear_velocity.y, -400, 400))
+    # enforce maximum speeds
+  state.linear_velocity = Vector2(
+    clamp(state.linear_velocity.x, -max_ground_speed, max_ground_speed),
+    clamp(state.linear_velocity.y, -max_air_speed, max_air_speed))
+
 
 func action(action_name: String):
   return "%s%s" % [action_name, player_number]
