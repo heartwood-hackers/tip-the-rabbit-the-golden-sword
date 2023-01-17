@@ -2,7 +2,7 @@ extends Node2D
 
 onready var spawn_points = $SpawnPoints.get_children()
 onready var camera = $DynamicCamera
-func _process(delta):
+func _process(_delta):
   var character_extents = get_character_position_extents()
   camera.zoom_to_extents(character_extents)
 
