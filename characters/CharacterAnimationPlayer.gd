@@ -2,19 +2,20 @@ extends AnimationPlayer
 
 export var character_resource: Resource
 
+var animation_sprite_map = [
+  ["Air Idle", "jump_sprite"],
+  ["Idle", "idle_sprite"],
+  ["Land", "jump_sprite"],
+  ["Lift Off", "jump_sprite"],
+  ["Melee", "melee_sprite"],
+  ["RESET", "reset_sprite"],
+  ["Run", "run_sprite"],
+  ["Throw", "throw_sprite"]
+]
 
 func _ready():
-  print(self.get_animation_list())
-
-  set_animation_texture("Air Idle", "jump_sprite")
-  set_animation_texture("Idle", "idle_sprite")
-  set_animation_texture("Land", "jump_sprite")
-  set_animation_texture("Lift Off", "jump_sprite")
-  set_animation_texture("Melee", "melee_sprite")
-  set_animation_texture("RESET", "reset_sprite")
-  set_animation_texture("Run", "run_sprite")
-  set_animation_texture("Throw", "throw_sprite")
-
+  for pair in animation_sprite_map:
+    set_animation_texture(pair[0], pair[1])
 
 func set_animation_texture(animation_name, resource_getter):
   var animation: Animation = get_animation(animation_name)
