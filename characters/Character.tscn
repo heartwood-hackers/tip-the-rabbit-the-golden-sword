@@ -425,6 +425,7 @@ position = Vector2( 1, -5 )
 scale = Vector2( 2, 2 )
 
 [node name="AttackSprite" type="Sprite" parent="."]
+scale = Vector2( 0.25, 0.25 )
 
 [node name="AttackArea" type="Area2D" parent="."]
 position = Vector2( 9, -5 )
