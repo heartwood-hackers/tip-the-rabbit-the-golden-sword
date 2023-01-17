@@ -4,6 +4,7 @@
 [ext_resource path="res://characters/rabbit/RabbitResource.tres" type="Resource" id=2]
 
 [node name="Character" instance=ExtResource( 1 )]
+rock_speed = Vector2( 800, 0 )
 
 [node name="AnimationPlayer" parent="." index="5"]
 character_resource = ExtResource( 2 )

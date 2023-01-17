@@ -1,6 +1,7 @@
 extends RigidBody2D
 class_name Character
 
+export(Vector2) var rock_speed = Vector2(600,0)
 var rock_scene=preload("res://projectiles/Rock.tscn")
 signal damaged(player_number, health)
 export var health=100 setget _set_health
@@ -25,7 +26,7 @@ onready var animation_player = $AnimationPlayer
 func throw_rock():
   var rock_instance = rock_scene.instance()
   rock_instance.position = $ThrowOrigin.position * (-1 if $Animations.flip_h else 1)
-  rock_instance.linear_velocity = Vector2(600,0) * (-1 if $Animations.flip_h else 1)
+  rock_instance.linear_velocity = rock_speed * (-1 if $Animations.flip_h else 1)
   add_child(rock_instance)
 
 
@@ -74,7 +75,7 @@ func _integrate_forces(state):
   var pressed_jump = pressed("jump", true)
   if(pressed_jump and number_of_jumps < 2):
     # do jump routine
-    state.linear_velocity.y = -jump_speed
+    state.linear_velocity.y = -jump_speed * (1 if number_of_jumps == 0 else .8)
     number_of_jumps += 1
   
   # enforce maximum speeds
