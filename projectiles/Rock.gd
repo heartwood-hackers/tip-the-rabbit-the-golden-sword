@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-export var damage = 50
+export var damage = 25
 
 func _on_timeout():
   self.queue_free()

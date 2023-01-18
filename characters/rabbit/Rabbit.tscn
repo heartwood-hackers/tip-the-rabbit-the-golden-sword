@@ -5,6 +5,7 @@
 
 [node name="Character" instance=ExtResource( 1 )]
 rock_speed = Vector2( 800, 0 )
+rock_damage = 20
 
 [node name="AnimationPlayer" parent="." index="5"]
 character_resource = ExtResource( 2 )

@@ -14,12 +14,15 @@ signal lost_life(player_number, lives)
 export var lives = 3
 export var ground_acceleration = 100
 export var jump_speed = 1000
+export var rock_damage = 25
+export var melee_damage = 45
 
 export var max_ground_speed = 500
 export var max_air_speed = 1500
 export(int, 1, 4) var player_number
 
 var number_of_jumps = 0
+export var max_jumps = 2
 
 onready var animation_player = $AnimationPlayer
 
@@ -27,6 +30,7 @@ func throw_rock():
   var rock_instance = rock_scene.instance()
   rock_instance.position = $ThrowOrigin.position * (-1 if $Animations.flip_h else 1)
   rock_instance.linear_velocity = rock_speed * (-1 if $Animations.flip_h else 1)
+  rock_instance.damage = rock_damage
   add_child(rock_instance)
 
 
@@ -39,9 +43,9 @@ func _on_attack_body_entered(body):
   
   var me_to_you = body.position - self.position
   var unit_mty = me_to_you.normalized()
-  body.apply_central_impulse(unit_mty*600)
+  body.apply_central_impulse(Vector2(unit_mty.x*2000, -500))
   
-  body.health -= 10
+  body.health -= melee_damage
   
   
 func respawn(state):
@@ -73,9 +77,9 @@ func _integrate_forces(state):
     state.apply_central_impulse(Vector2(right-left, 0))
 
   var pressed_jump = pressed("jump", true)
-  if(pressed_jump and number_of_jumps < 2):
+  if(pressed_jump and number_of_jumps < max_jumps):
     # do jump routine
-    state.linear_velocity.y = -jump_speed * (1 if number_of_jumps == 0 else .8)
+    state.linear_velocity.y = -jump_speed * (1.0 if number_of_jumps == 0 else 0.8)
     number_of_jumps += 1
   
   # enforce maximum speeds

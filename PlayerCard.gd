@@ -47,9 +47,9 @@ func _ready():
     input.add_player_action(player_number, "attack_range", [
       { "device": player_number-1, "button": JOY_XBOX_B }
     ])
-    input.add_player_action(player_number, "cancel", [
-      { "device": player_number-1, "button": JOY_SELECT }
-    ])
+#    input.add_player_action(player_number, "cancel", [
+#      { "device": player_number-1, "button": JOY_SELECT }
+#    ])
 
   elif(player_number == 3):
     input.add_player_action(player_number, "move_right", [
@@ -67,9 +67,9 @@ func _ready():
     input.add_player_action(player_number, "attack_range", [
       { "scancode": KEY_N }
     ])
-    input.add_player_action(player_number, "cancel", [
-      { "scancode": KEY_TAB }
-    ])
+#    input.add_player_action(player_number, "cancel", [
+#      { "scancode": KEY_TAB }
+#    ])
 
   elif(player_number == 4):
     input.add_player_action(player_number, "move_right", [
@@ -87,9 +87,9 @@ func _ready():
     input.add_player_action(player_number, "attack_range", [
       { "scancode": KEY_PERIOD }
     ])
-    input.add_player_action(player_number, "cancel", [
-      { "scancode": KEY_SEMICOLON }
-    ])
+#    input.add_player_action(player_number, "cancel", [
+#      { "scancode": KEY_SEMICOLON }
+#    ])
 
 
 signal select_character(player_number, character_name)
