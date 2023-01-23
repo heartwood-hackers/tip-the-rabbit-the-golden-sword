@@ -142,6 +142,7 @@ func parse_action(event):
     if(event.is_action("%s%s" % [action, player_number])):
       return action
   
+  
 var character_cursor = 0
 var characters = ["turtle", "rabbit", "owl"]
 func current_character(): return characters[character_cursor]

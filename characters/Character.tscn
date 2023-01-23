@@ -14,7 +14,7 @@ radius = 17.0
 height = 22.0
 
 [sub_resource type="CircleShape2D" id=7]
-radius = 75.0
+radius = 66.0
 
 [sub_resource type="Animation" id=8]
 resource_name = "Air Idle"
@@ -238,10 +238,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.15, 0.3, 0.45, 0.55, 1.25 ),
+"times": PoolRealArray( 0, 0.1, 0.25, 0.35, 0.45, 0.55 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ null, ExtResource( 10 ), ExtResource( 8 ), ExtResource( 11 ), null, ExtResource( 9 ) ]
+"values": [ null, ExtResource( 10 ), ExtResource( 8 ), ExtResource( 11 ), ExtResource( 9 ), null ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("AttackArea/CollisionShape2D:disabled")
@@ -437,15 +437,15 @@ position = Vector2( 1, -5 )
 scale = Vector2( 2, 2 )
 
 [node name="AttackSprite" type="Sprite" parent="."]
+position = Vector2( 2, 3 )
 scale = Vector2( 0.5, 0.4 )
 
 [node name="AttackArea" type="Area2D" parent="."]
-position = Vector2( 9, -5 )
 collision_layer = 32
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
-position = Vector2( 37, -6 )
+position = Vector2( 53, -8 )
 shape = SubResource( 7 )
 disabled = true
 
