@@ -3,15 +3,20 @@ class_name Character
 
 export(Vector2) var rock_speed = Vector2(600,0)
 var rock_scene=preload("res://projectiles/Rock.tscn")
-signal damaged(player_number, health)
-export var health=100 setget _set_health
+
+export var health = 100 setget _set_health
 func _set_health(new_health):
-  health = new_health
+  var old_health = health
+  health = max(new_health, 0)
   $Animations.rotation_degrees = health - 100
-  emit_signal("damaged", player_number, health)
+  EventBus.emit_signal("player_health_updated", self, new_health, old_health)
   
-signal lost_life(player_number, lives)
-export var lives = 3
+export var lives = 3 setget _set_lives
+func _set_lives(new_lives):
+  var old_lives = lives
+  lives = new_lives
+  EventBus.emit_signal("player_lives_updated", self, new_lives, old_lives)
+
 export var ground_acceleration = 100
 export var jump_speed = 1000
 export var rock_damage = 25
@@ -60,9 +65,7 @@ func _integrate_forces(state):
   # out of bounds:
   if(health <= 0 or position.x > 2000 or position.x < -500 or position.y < -500 or position.y > 1000):
     if(health <= 0):
-      lives -= 1
-      emit_signal("lost_life", player_number, lives)
-      
+      self.lives -= 1
 
     if(lives > 0):
       self.respawn(state)
