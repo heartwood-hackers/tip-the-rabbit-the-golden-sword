@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/fast-whoosh-118248.mp3-4a274ae11ae17806b9c4d31554d23a4f.mp3str"
+
+[deps]
+
+source_file="res://fast-whoosh-118248.mp3"
+dest_files=[ "res://.import/fast-whoosh-118248.mp3-4a274ae11ae17806b9c4d31554d23a4f.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

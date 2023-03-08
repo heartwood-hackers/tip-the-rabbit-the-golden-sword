@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/splat2ogg-14668.mp3-1db6b41d2896f990b8c431b737b69b15.mp3str"
+
+[deps]
+
+source_file="res://splat2ogg-14668.mp3"
+dest_files=[ "res://.import/splat2ogg-14668.mp3-1db6b41d2896f990b8c431b737b69b15.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

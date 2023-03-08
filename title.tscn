@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://title_graphic_bad.png" type="Texture" id=1]
 [ext_resource path="res://title.gd" type="Script" id=2]
 [ext_resource path="res://title_graphic_tip.png" type="Texture" id=3]
+[ext_resource path="res://splat2ogg-14668.mp3" type="AudioStream" id=4]
+[ext_resource path="res://fast-whoosh-118248.mp3" type="AudioStream" id=5]
 
 [node name="Node2D" type="Node2D"]
 position = Vector2( 1, 0 )
@@ -22,3 +24,11 @@ texture = ExtResource( 3 )
 wait_time = 0.3
 one_shot = true
 autostart = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = 24.0
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = 24.0
